@@ -7,11 +7,11 @@ local itemCategoryConstants = {
 local shippingCo = {
     rocketStacks = 10,    
     configConstants = {
-        MAX_ITEMS_PER_ORDER = 5
+        MAX_ITEMS_PER_ORDER = 5,
+        SCALE_FACTOR = 0.2
     },
     objectiveItems = {
-        [itemCategoryConstants.ORES] = { "coal", "stone", "iron ore", "copper ore" },
-        [itemCategoryConstants.TEST] = { "test1", "test2", "test3", "test4" }
+        [itemCategoryConstants.ORES] = { "coal", "stone", "iron ore", "copper ore" }        
     }    
 }
 
@@ -24,7 +24,7 @@ local function generate_order(number_of_items)
     for i=1, number_of_items do
         local item = {             
             name = shippingCo.objectiveItems[math.random(2)][math.random(4)],
-            quantityOfStacks = math.random(10),
+            quantityOfStacks = math.random(5, 10) * (shippingCo.configConstants.SCALE_FACTOR * global.shippingCoLevel),
             maxStack = 50,
             quantityLaunched = 0
         }
@@ -60,7 +60,7 @@ local function gui_open_frame(player)
     
     frame = player.gui.left.add {
         type = "frame",
-        caption = "Shipping Order Details",
+        caption = string.format("Shipping Order Details (Level: %s)", global.shippingCoLevel),
         name = "shipping-co-order-frame",
         direction = "vertical"
     }
@@ -70,7 +70,7 @@ local function gui_open_frame(player)
             local quantity = item.maxStack * item.quantityOfStacks
             frame.add {
                 type = "label",
-                caption = string.format("%s launched : %s / %s", item.name, item.quantityLaunched, quantity)
+                caption = string.format("%s launched : %d / %d", item.name, item.quantityLaunched, quantity)
             }
         end        
     end
@@ -89,11 +89,17 @@ local function check_order_complete()
     return true
 end
 
-script.on_event( defines.events.on_tick, function(event)        
-    if not global.shippingCoOrder then global.shippingCoOrder = generate_order(math.random(shippingCo.configConstants.MAX_ITEMS_PER_ORDER)) end    
+script.on_event( defines.events.on_tick, function(event)
+    if not global.shippingCoLevel then
+        global.shippingCoLevel = 1
+    end
+
+    if not global.shippingCoOrder then 
+        global.shippingCoOrder = generate_order(math.random(shippingCo.configConstants.MAX_ITEMS_PER_ORDER)) 
+    end    
 
     for i, player in pairs(game.connected_players) do
-        if player.gui.top.shippingCoOrderButton == nill then 
+        if player.gui.top.shippingCoOrderButton == nil then 
             player.gui.top.add{ type = "button", name="shippingCoOrderButton", caption = "Shipping Order" }
         end
 
@@ -103,6 +109,7 @@ script.on_event( defines.events.on_tick, function(event)
     end    
 
     if global.shippingCoOrderIsComplete then
+        global.shippingCoLevel = global.shippingCoLevel + 1
         global.shippingCoOrder = generate_order(math.random(shippingCo.configConstants.MAX_ITEMS_PER_ORDER))
 
         for i, player in pairs(game.connected_players) do
