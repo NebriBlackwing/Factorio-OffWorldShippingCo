@@ -1,42 +1,52 @@
 -- create our global container object
-if not shippingCo then shippingCo = {} end
-if not shippingCo.rocketStacks then shippingCo.rocketStacks = 10 end
 
--- specify the order objectives
-if not shippingCo.objectiveItems then 
-    shippingCo.objectiveItems = {
+local shippingCo = {
+    rocketStacks = 10,
+    objectiveItems = {
         ["ores"] = { "coal", "stone", "iron", "copper" }
-    }
-end
+    }    
+}
 
 -- generate an order
-local function generate_order(number_of_items)
-    local order = {}
-    local item = {}
-    
-    order.number_of_items = number_of_items
+local function generate_order(number_of_items)    
 
-    for i = 1, order.number_of_items, do
+    -- hardcoded for now, we will try and randomly generate these later.
+    local item1 = { 
+        itemCategory = "ores",
+        name = "coal",
+        quantityOfStacks = 4,
+        maxStack = 50,
+        quantityLaunched = 5
+    }
 
-        item.itemCategory = shippingCo.objectiveItems[ math.random( #shippingCo.objectiveItems ) ]
-        item.name = shippingCo.objectiveItems[ itemCategory ] [ math.random( #shippingCo.objectiveItems[itemCategory] ) ]    
-        item.quantityOfStacks = math.random(10)    
+    local item2 = { 
+        itemCategory = "ores",
+        name = "stone",
+        quantityOfStacks = 5,
+        maxStack = 50,
+        quantityLaunched = 8
+    }
 
-        if item.itemCategory == "ores" then
-            item.quantity = item.quantityOfStacks * 50
-        end
-
-        item.quantityLaunched = 0
-
-        table.insert(order, item)
-
-    end    
+    local order = {item1, item2}         
 
     return order
 end
 
-local function gui_open_frame(player)
+local function gui_init(player)
 
+    if player.gui.top["shippingCoOrderButton"] then
+        player.gui.top["shippingCoOrderButton"].destroy()
+    end
+
+    player.gui.top.add{        
+        type = "button",
+        name = "shippingCoOrderButton",
+        caption = {"Order"}
+    }
+
+end
+
+local function gui_open_frame(player)
     local frame = player.gui.left["shipping-co-order-frame"]
 
     if frame then
@@ -45,27 +55,30 @@ local function gui_open_frame(player)
     
     frame = player.gui.left.add {
         type = "frame",
-        caption = {"shipping-co-order-frame-title"},
+        caption = "Shipping Order Details",
         name = "shipping-co-order-frame",
         direction = "vertical"
     }
 
-    frame.add {
-        type = "label",
-        caption = " -Item1 launched : 0 / 10 " 
-    }
-
+    if global.shippingCoOrder then
+        for key, item in pairs(global.shippingCoOrder) do
+            local quantity = item.maxStack * item.quantityOfStacks
+            frame.add {
+                type = "label",
+                caption = string.format("%s launched : %s / %s", item.name, item.quantityLaunched, quantity)
+            }
+        end        
+    end
 end
 
 script.on_event( defines.events.on_tick, function(event)        
-
     if not global.shippingCoOrder then global.shippingCoOrder = generate_order(1) end
 
     for i, player in pairs(game.connected_players) do
-        if player.gui.top.shippingCoGUI == nill then player.gui.top.add{type="button", name="shippingCoGUI"} end
-        player.gui.top.shippingCoGUI.caption = string.format("Hello World!")
-    end
-
+        if player.gui.top.shippingCoOrderButton == nill then 
+            player.gui.top.add{ type = "button", name="shippingCoOrderButton", caption = "Shipping Order" }
+        end        
+    end    
 end)
 
 script.on_event(defines.events.on_rocket_launched, function(event)
@@ -80,3 +93,22 @@ script.on_event(defines.events.on_rocket_launched, function(event)
       player.print(shippingCo.get_number())
     end
   end)
+
+script.on_event( defines.events.on_gui_click, function(event) 
+
+    local element = event.element
+    local player = game.players[event.player_index]
+
+    if element.name == "shippingCoOrderButton" then
+
+        local frame = player.gui.left["shipping-co-order-frame"]
+
+        if frame then
+            frame.destroy()
+        else
+            gui_open_frame(player)
+        end
+        
+    end
+
+end )
