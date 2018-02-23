@@ -1,6 +1,6 @@
 local itemCategoryConstants = {
-    ORES = 1,
-    TEST = 2,    
+    TRANSPORT_BELT = 1,
+    TOOL = 2,
 }
 
 -- create our global container object
@@ -11,7 +11,8 @@ local shippingCo = {
         SCALE_FACTOR = 0.2
     },
     objectiveItems = {
-        [itemCategoryConstants.ORES] = { "coal", "stone", "iron ore", "copper ore" }        
+        [itemCategoryConstants.TRANSPORT_BELT] = { "transport-belt", "fast-transport-belt", "express-transport-belt"},
+        [itemCategoryConstants.TOOL] = { "high-tech-science-pack", "military-science-pack", "production-science-pack", "science-pack-1", "science-pack-2", "science-pack-3", "space-science-pack"}
     }    
 }
 
@@ -122,9 +123,7 @@ end)
 script.on_event(defines.events.on_rocket_launched, function(event)
     -- just to make sure we don't accidently finish the game!
     remote.call("silo_script","set_show_launched_without_satellite", false)
-    remote.call("silo_script","set_finish_on_launch", false)
-
-    local testString = "Hello Rocket Launch!"        
+    remote.call("silo_script","set_finish_on_launch", false)        
     
     if global.shippingCoOrder then
         for key, item in pairs(global.shippingCoOrder) do
@@ -134,8 +133,7 @@ script.on_event(defines.events.on_rocket_launched, function(event)
         global.shippingCoOrderIsComplete = check_order_complete()
     end        
 
-    for _, player in pairs(game.players) do      
-      player.print(testString)      
+    for _, player in pairs(game.players) do
       gui_open_frame(player)
     end
   end)
