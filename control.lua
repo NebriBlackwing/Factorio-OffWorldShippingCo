@@ -14,7 +14,7 @@ local function generate_order(number_of_items)
     local item1 = { 
         itemCategory = "ores",
         name = "coal",
-        quantityOfStacks = 4,
+        quantityOfStacks = 2,
         maxStack = 50,
         quantityLaunched = 5
     }
@@ -22,12 +22,17 @@ local function generate_order(number_of_items)
     local item2 = { 
         itemCategory = "ores",
         name = "stone",
-        quantityOfStacks = 5,
+        quantityOfStacks = 1,
         maxStack = 50,
         quantityLaunched = 8
     }
 
-    local order = {item1, item2}         
+    local order = {
+        item1,
+        item2,        
+    }
+
+    global.shippingCoOrderIsComplete = false
 
     return order
 end
@@ -71,14 +76,40 @@ local function gui_open_frame(player)
     end
 end
 
+local function check_order_complete() 
+    if global.shippingCoOrder then
+        for key, item in pairs(global.shippingCoOrder) do
+            totalQuantityRequired = item.maxStack * item.quantityOfStacks
+            if (item.quantityLaunched < totalQuantityRequired) then
+                return false
+            end
+        end
+    end
+
+    return true
+end
+
 script.on_event( defines.events.on_tick, function(event)        
-    if not global.shippingCoOrder then global.shippingCoOrder = generate_order(1) end
+    if not global.shippingCoOrder then global.shippingCoOrder = generate_order(1) end    
 
     for i, player in pairs(game.connected_players) do
         if player.gui.top.shippingCoOrderButton == nill then 
             player.gui.top.add{ type = "button", name="shippingCoOrderButton", caption = "Shipping Order" }
-        end        
+        end
+
+        if global.shippingCoOrderIsComplete then
+            player.print("Shipping Order complete! Recieving new order!")            
+        end
     end    
+
+    if global.shippingCoOrderIsComplete then
+        global.shippingCoOrder = generate_order(1)
+
+        for i, player in pairs(game.connected_players) do
+            gui_open_frame(player)
+        end
+    end
+
 end)
 
 script.on_event(defines.events.on_rocket_launched, function(event)
@@ -88,9 +119,17 @@ script.on_event(defines.events.on_rocket_launched, function(event)
 
     local testString = "Hello Rocket Launch!"        
     
+    if global.shippingCoOrder then
+        for key, item in pairs(global.shippingCoOrder) do
+            item.quantityLaunched = item.quantityLaunched + event.rocket.get_item_count(item.name)
+        end
+
+        global.shippingCoOrderIsComplete = check_order_complete()
+    end        
+
     for _, player in pairs(game.players) do      
-      player.print(testString)
-      player.print(shippingCo.get_number())
+      player.print(testString)      
+      gui_open_frame(player)
     end
   end)
 
