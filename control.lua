@@ -1,36 +1,38 @@
 -- create our global container object
+local itemCategoryConstants = {
+    ORES = 1,
+    TEST = 2,    
+}
+
+local configConstants = {
+    MAX_ITEMS_PER_ORDER = 5
+}
 
 local shippingCo = {
     rocketStacks = 10,
     objectiveItems = {
-        ["ores"] = { "coal", "stone", "iron", "copper" }
+        [itemCategoryConstants.ORES] = { "coal", "stone", "iron ore", "copper ore" },
+        [itemCategoryConstants.TEST] = { "test1", "test2", "test3", "test4" }
     }    
 }
 
 -- generate an order
-local function generate_order(number_of_items)    
+local function generate_order(number_of_items)        
 
-    -- hardcoded for now, we will try and randomly generate these later.
-    local item1 = { 
-        itemCategory = "ores",
-        name = "coal",
-        quantityOfStacks = 2,
-        maxStack = 50,
-        quantityLaunched = 5
-    }
+    -- hardcoded for now, we will try and randomly generate these later.        
+    local order = {}
 
-    local item2 = { 
-        itemCategory = "ores",
-        name = "stone",
-        quantityOfStacks = 1,
-        maxStack = 50,
-        quantityLaunched = 8
-    }
+    for i=1, number_of_items do
+        local item = { 
+            itemCategory = "ores",
+            name = shippingCo.objectiveItems[math.random(2)][math.random(4)],
+            quantityOfStacks = math.random(10),
+            maxStack = 50,
+            quantityLaunched = 0
+        }
 
-    local order = {
-        item1,
-        item2,        
-    }
+        table.insert(order, item)
+    end    
 
     global.shippingCoOrderIsComplete = false
 
@@ -90,7 +92,7 @@ local function check_order_complete()
 end
 
 script.on_event( defines.events.on_tick, function(event)        
-    if not global.shippingCoOrder then global.shippingCoOrder = generate_order(1) end    
+    if not global.shippingCoOrder then global.shippingCoOrder = generate_order(math.random(configConstants.MAX_ITEMS_PER_ORDER)) end    
 
     for i, player in pairs(game.connected_players) do
         if player.gui.top.shippingCoOrderButton == nill then 
@@ -103,7 +105,7 @@ script.on_event( defines.events.on_tick, function(event)
     end    
 
     if global.shippingCoOrderIsComplete then
-        global.shippingCoOrder = generate_order(1)
+        global.shippingCoOrder = generate_order(math.random(configConstants.MAX_ITEMS_PER_ORDER))
 
         for i, player in pairs(game.connected_players) do
             gui_open_frame(player)
