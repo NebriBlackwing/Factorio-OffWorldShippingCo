@@ -1,6 +1,14 @@
 local itemCategoryConstants = {
     TRANSPORT_BELT = 1,
     TOOL = 2,
+    ACCUMULATOR = 3,
+    AMMO = 4,
+    ARTILLERY_WAGON = 5,
+    FLUID_WAGON = 6,
+    FURNACE = 7,
+    INSERTER = 8,
+    ITEM = 9,
+    MODULE = 10,
 }
 
 -- create our global container object
@@ -8,23 +16,38 @@ local shippingCo = {
     rocketStacks = 10,    
     configConstants = {
         MAX_ITEMS_PER_ORDER = 5,
-        SCALE_FACTOR = 0.2
+        SCALE_FACTOR = 0.2        
     },
     objectiveItems = {
         [itemCategoryConstants.TRANSPORT_BELT] = { "transport-belt", "fast-transport-belt", "express-transport-belt"},
-        [itemCategoryConstants.TOOL] = { "high-tech-science-pack", "military-science-pack", "production-science-pack", "science-pack-1", "science-pack-2", "science-pack-3", "space-science-pack"}
+        [itemCategoryConstants.TOOL] = { "high-tech-science-pack", "military-science-pack", "production-science-pack", "science-pack-1", "science-pack-2", "science-pack-3", "space-science-pack"},
+        [itemCategoryConstants.ACCUMULATOR] = {"accumulator"},
+        [itemCategoryConstants.AMMO] = { "artillery-shell", "atomic-bomb", "cannon-shell", "explosive-cannon-shell", "explosive-rocket", "explosive-uranium-cannon-shell", "firearm-magazine", "flamethrower-ammo", "piercing-rounds-magazine", "piercing-shotgun-shell", "railgun-dart", "rocket", "shotgun-shell", "uranium-cannon-shell", "uranium-rounds-magazine"},
+        [itemCategoryConstants.ARTILLERY_WAGON] = { "artillery-wagon" },
+        [itemCategoryConstants.FLUID_WAGON] = { "fluid-wagon" },
+        [itemCategoryConstants.FURNACE] = {"electric-furnace", "steel-furnace", "stone-furnace"},
+        [itemCategoryConstants.INSERTER] = {"burner-inserter", "fast-inserter", "filter-inserter", "inserter", "long-handed-inserter", "stack-filter-inserter", "stack-inserter"},
+        [itemCategoryConstants.ITEM] = {"radar", "advanced-circuit", "electronic-circuit", "processing-unit", "logistic-robot", "construction-robot", "train-stop"},
+        [itemCategoryConstants.MODULE] = {"speed-module-3", "productivity-module-3", "effectivity-module-3"}
     }    
 }
+
+local function table_length(myTable)
+    local count = 0
+    for _ in pairs(myTable) do count = count + 1 end
+    return count
+end
 
 -- generate an order
 local function generate_order(number_of_items)        
 
     -- hardcoded for now, we will try and randomly generate these later.        
-    local order = {}
+    local order = {}    
 
     for i=1, number_of_items do
+        local categorySelected = math.random(table_length(itemCategoryConstants))
         local item = {             
-            name = shippingCo.objectiveItems[math.random(2)][math.random(4)],
+            name = shippingCo.objectiveItems[categorySelected][math.random(#shippingCo.objectiveItems[categorySelected])],
             quantityOfStacks = math.random(5, 10) * (shippingCo.configConstants.SCALE_FACTOR * global.shippingCoLevel),
             maxStack = 50,
             quantityLaunched = 0
@@ -92,7 +115,7 @@ end
 
 script.on_event( defines.events.on_tick, function(event)
     if not global.shippingCoLevel then
-        global.shippingCoLevel = 1
+        global.shippingCoLevel = 200
     end
 
     if not global.shippingCoOrder then 
