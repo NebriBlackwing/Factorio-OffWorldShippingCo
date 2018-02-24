@@ -1,8 +1,12 @@
 Version History
 
     0.15.0 (2018-23-02):
-        Initial release.
+        - Initial release.
     0.16.0 (2018-23-02):
-        Support for Factorio 0.16.x
+       - Support for Factorio 0.16.x
     0.16.1 (2018-23-02):
-        Fixed dialog suppression when rocket launches without satelite, ensures that the game does not end.
+       - Fixed dialog suppression when rocket launches without satelite, ensures that the game does not end.
+    0.16.2 (2018-24-02):
+        - Fixed a pontential index out of bounds error.
+        - Added more items to the pool of randomly selected items for orders.
+        
