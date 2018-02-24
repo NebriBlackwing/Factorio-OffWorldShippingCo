@@ -120,11 +120,7 @@ script.on_event( defines.events.on_tick, function(event)
 
 end)
 
-script.on_event(defines.events.on_rocket_launched, function(event)
-    -- just to make sure we don't accidently finish the game!
-    remote.call("silo_script","set_show_launched_without_satellite", false)
-    remote.call("silo_script","set_finish_on_launch", false)        
-    
+script.on_event(defines.events.on_rocket_launched, function(event)        
     if global.shippingCoOrder then
         for key, item in pairs(global.shippingCoOrder) do
             item.quantityLaunched = item.quantityLaunched + event.rocket.get_item_count(item.name)
@@ -156,3 +152,11 @@ script.on_event( defines.events.on_gui_click, function(event)
     end
 
 end )
+
+-- script.on_init(function() 
+--     -- just to make sure we don't accidently finish the game!
+--     if remote.interfaces["silo_script"] then
+--         remote.call("silo_script","set_show_launched_without_satellite", false)
+--         remote.call("silo_script","set_finish_on_launch", false)        
+--     end
+-- end)
