@@ -153,10 +153,18 @@ script.on_event( defines.events.on_gui_click, function(event)
 
 end )
 
--- script.on_init(function() 
---     -- just to make sure we don't accidently finish the game!
---     if remote.interfaces["silo_script"] then
---         remote.call("silo_script","set_show_launched_without_satellite", false)
---         remote.call("silo_script","set_finish_on_launch", false)        
---     end
--- end)
+local function disable_satelite_dialog()
+    -- just to make sure we don't accidently finish the game!
+    if remote.interfaces["silo_script"] then
+        remote.call("silo_script","set_show_launched_without_satellite", false)
+        remote.call("silo_script","set_finish_on_launch", false)        
+    end
+end
+
+script.on_init(function() 
+    disable_satelite_dialog()
+end)
+
+script.on_configuration_changed(function() 
+    disable_satelite_dialog()
+end)
