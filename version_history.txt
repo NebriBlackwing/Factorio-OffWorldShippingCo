@@ -1,0 +1,8 @@
+Version History
+
+    0.15.0 (2018-23-02):
+        Initial release.
+    0.16.0 (2018-23-02):
+        Support for Factorio 0.16.x
+    0.16.1 (2018-23-02):
+        Fixed dialog suppression when rocket launches without satelite, ensures that the game does not end.
