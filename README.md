@@ -1,5 +1,5 @@
 # Factorio-OffWorldShippingCo
-This is factorio mod randomly generates a shipping order, that must be blasted off into space using the rocket silo.
+This is a factorio mod randomly generates a shipping order, that must be blasted off into space using the rocket silo.
 
 Each time you complete an order, it will push the order level higher. The mod will generate an item list based on scale factor upon the level (20% per level), within a defined range. There is no limit to the level, this will continuously generate orders indefinitely.
 
