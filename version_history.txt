@@ -9,4 +9,5 @@ Version History
     0.16.2 (2018-24-02):
         - Fixed a pontential index out of bounds error.
         - Added more items to the pool of randomly selected items for orders.
-        
+    0.16.3 (2018-28-02)
+        - Internal code simplified.
