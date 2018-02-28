@@ -3,7 +3,8 @@ local shippingCo = {
     rocketStacks = 10,    
     configConstants = {
         MAX_ITEMS_PER_ORDER = 5,
-        SCALE_FACTOR = 0.2        
+        SCALE_FACTOR = 0.2,
+        SHIPPING_CO_STARTING_LEVEL = 1
     },
     objectiveItems = {
         "accumulator",
@@ -133,7 +134,7 @@ end
 
 script.on_event( defines.events.on_tick, function(event)
     if not global.shippingCoLevel then
-        global.shippingCoLevel = 200
+        global.shippingCoLevel = shippingCo.configConstants.SHIPPING_CO_STARTING_LEVEL
     end
 
     if not global.shippingCoOrder then 
