@@ -1,16 +1,3 @@
-local itemCategoryConstants = {
-    TRANSPORT_BELT = 1,
-    TOOL = 2,
-    ACCUMULATOR = 3,
-    AMMO = 4,
-    ARTILLERY_WAGON = 5,
-    FLUID_WAGON = 6,
-    FURNACE = 7,
-    INSERTER = 8,
-    ITEM = 9,
-    MODULE = 10,
-}
-
 -- create our global container object
 local shippingCo = {
     rocketStacks = 10,    
@@ -19,24 +6,56 @@ local shippingCo = {
         SCALE_FACTOR = 0.2        
     },
     objectiveItems = {
-        [itemCategoryConstants.TRANSPORT_BELT] = { "transport-belt", "fast-transport-belt", "express-transport-belt"},
-        [itemCategoryConstants.TOOL] = { "high-tech-science-pack", "military-science-pack", "production-science-pack", "science-pack-1", "science-pack-2", "science-pack-3", "space-science-pack"},
-        [itemCategoryConstants.ACCUMULATOR] = {"accumulator"},
-        [itemCategoryConstants.AMMO] = { "artillery-shell", "atomic-bomb", "cannon-shell", "explosive-cannon-shell", "explosive-rocket", "explosive-uranium-cannon-shell", "firearm-magazine", "flamethrower-ammo", "piercing-rounds-magazine", "piercing-shotgun-shell", "railgun-dart", "rocket", "shotgun-shell", "uranium-cannon-shell", "uranium-rounds-magazine"},
-        [itemCategoryConstants.ARTILLERY_WAGON] = { "artillery-wagon" },
-        [itemCategoryConstants.FLUID_WAGON] = { "fluid-wagon" },
-        [itemCategoryConstants.FURNACE] = {"electric-furnace", "steel-furnace", "stone-furnace"},
-        [itemCategoryConstants.INSERTER] = {"burner-inserter", "fast-inserter", "filter-inserter", "inserter", "long-handed-inserter", "stack-filter-inserter", "stack-inserter"},
-        [itemCategoryConstants.ITEM] = {"radar", "advanced-circuit", "electronic-circuit", "processing-unit", "logistic-robot", "construction-robot", "train-stop"},
-        [itemCategoryConstants.MODULE] = {"speed-module-3", "productivity-module-3", "effectivity-module-3"}
-    }    
+        "accumulator",
+        "advanced-circuit", 
+        "artillery-shell",
+        "artillery-wagon",
+        "atomic-bomb", 
+        "burner-inserter", 
+        "cannon-shell", 
+        "construction-robot", 
+        "effectivity-module-3",
+        "electric-furnace",
+        "electronic-circuit", 
+        "explosive-cannon-shell", 
+        "explosive-rocket", 
+        "explosive-uranium-cannon-shell", 
+        "express-transport-belt",
+        "fast-inserter", 
+        "fast-transport-belt", 
+        "filter-inserter", 
+        "firearm-magazine", 
+        "flamethrower-ammo", 
+        "fluid-wagon",
+        "high-tech-science-pack", 
+        "inserter", 
+        "logistic-robot", 
+        "long-handed-inserter", 
+        "military-science-pack", 
+        "piercing-rounds-magazine", 
+        "piercing-shotgun-shell", 
+        "processing-unit", 
+        "production-science-pack", 
+        "productivity-module-3", 
+        "radar", 
+        "railgun-dart", 
+        "rocket", 
+        "science-pack-1", 
+        "science-pack-2", 
+        "science-pack-3", 
+        "shotgun-shell", 
+        "space-science-pack",
+        "speed-module-3", 
+        "stack-filter-inserter", 
+        "stack-inserter",
+        "steel-furnace", 
+        "stone-furnace",
+        "train-stop",
+        "uranium-cannon-shell", 
+        "uranium-rounds-magazine",
+        "transport-belt", 
+    }        
 }
-
-local function table_length(myTable)
-    local count = 0
-    for _ in pairs(myTable) do count = count + 1 end
-    return count
-end
 
 -- generate an order
 local function generate_order(number_of_items)        
@@ -44,10 +63,9 @@ local function generate_order(number_of_items)
     -- hardcoded for now, we will try and randomly generate these later.        
     local order = {}    
 
-    for i=1, number_of_items do
-        local categorySelected = math.random(table_length(itemCategoryConstants))
+    for i=1, number_of_items do        
         local item = {             
-            name = shippingCo.objectiveItems[categorySelected][math.random(#shippingCo.objectiveItems[categorySelected])],
+            name = shippingCo.objectiveItems[math.random(#shippingCo.objectiveItems)],
             quantityOfStacks = math.random(5, 10) * (shippingCo.configConstants.SCALE_FACTOR * global.shippingCoLevel),
             maxStack = 50,
             quantityLaunched = 0
