@@ -1,61 +1,13 @@
 -- create our global container object
-local shippingCo = {
-    rocketStacks = 10,    
+local shippingCo = {    
     configConstants = {
         MAX_ITEMS_PER_ORDER = 5,
         SCALE_FACTOR = 0.2,
-        SHIPPING_CO_STARTING_LEVEL = 1
+        SHIPPING_CO_STARTING_LEVEL = 1        
     },
     objectiveItems = {
-        "accumulator",
-        "advanced-circuit", 
-        "artillery-shell",
-        "artillery-wagon",
-        "atomic-bomb", 
-        "burner-inserter", 
-        "cannon-shell", 
-        "construction-robot", 
-        "effectivity-module-3",
-        "electric-furnace",
-        "electronic-circuit", 
-        "explosive-cannon-shell", 
-        "explosive-rocket", 
-        "explosive-uranium-cannon-shell", 
-        "express-transport-belt",
-        "fast-inserter", 
-        "fast-transport-belt", 
-        "filter-inserter", 
-        "firearm-magazine", 
-        "flamethrower-ammo", 
-        "fluid-wagon",
-        "high-tech-science-pack", 
-        "inserter", 
-        "logistic-robot", 
-        "long-handed-inserter", 
-        "military-science-pack", 
-        "piercing-rounds-magazine", 
-        "piercing-shotgun-shell", 
-        "processing-unit", 
-        "production-science-pack", 
-        "productivity-module-3", 
-        "radar", 
-        "railgun-dart", 
-        "rocket", 
-        "science-pack-1", 
-        "science-pack-2", 
-        "science-pack-3", 
-        "shotgun-shell", 
-        "space-science-pack",
-        "speed-module-3", 
-        "stack-filter-inserter", 
-        "stack-inserter",
-        "steel-furnace", 
-        "stone-furnace",
-        "train-stop",
-        "uranium-cannon-shell", 
-        "uranium-rounds-magazine",
-        "transport-belt", 
-    }        
+        "factory-shipping-package",         
+    }
 }
 
 -- generate an order
@@ -67,8 +19,7 @@ local function generate_order(number_of_items)
     for i=1, number_of_items do        
         local item = {             
             name = shippingCo.objectiveItems[math.random(#shippingCo.objectiveItems)],
-            quantityOfStacks = math.random(5, 10) * (shippingCo.configConstants.SCALE_FACTOR * global.shippingCoLevel),
-            maxStack = 50,
+            quantityRequired = math.random(5) * (shippingCo.configConstants.SCALE_FACTOR * global.shippingCoLevel),
             quantityLaunched = 0
         }
 
@@ -109,11 +60,10 @@ local function gui_open_frame(player)
     }
 
     if global.shippingCoOrder then
-        for key, item in pairs(global.shippingCoOrder) do
-            local quantity = item.maxStack * item.quantityOfStacks
+        for key, item in pairs(global.shippingCoOrder) do            
             frame.add {
                 type = "label",
-                caption = string.format("%s launched : %d / %d", item.name, item.quantityLaunched, quantity)
+                caption = string.format("%s launched : %d / %d", item.name, item.quantityLaunched, item.quantityRequired)
             }
         end        
     end
@@ -121,9 +71,8 @@ end
 
 local function check_order_complete() 
     if global.shippingCoOrder then
-        for key, item in pairs(global.shippingCoOrder) do
-            totalQuantityRequired = item.maxStack * item.quantityOfStacks
-            if (item.quantityLaunched < totalQuantityRequired) then
+        for key, item in pairs(global.shippingCoOrder) do            
+            if (item.quantityLaunched < item.quantityRequired) then
                 return false
             end
         end
@@ -198,8 +147,7 @@ end )
 local function disable_satelite_dialog()
     -- just to make sure we don't accidently finish the game!
     if remote.interfaces["silo_script"] then
-        remote.call("silo_script","set_show_launched_without_satellite", false)
-        remote.call("silo_script","set_finish_on_launch", false)        
+        remote.call("silo_script","set_show_launched_without_satellite", false)        
     end
 end
 
