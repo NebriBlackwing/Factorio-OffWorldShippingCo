@@ -1,7 +1,7 @@
 -- create our global container object
 local shippingCo = {    
     configConstants = {
-        MAX_ITEMS_PER_ORDER = 5,
+        MAX_ITEMS_PER_ORDER = 3,
         SCALE_FACTOR = 0.2,
         SHIPPING_CO_STARTING_LEVEL = 1        
     },
@@ -12,15 +12,33 @@ local shippingCo = {
     }
 }
 
+local function isItemAlreadyListedInOrder(order, itemName)
+
+    for key, item in pairs(order) do
+        if item.name == itemName then
+            return true
+        end
+    end
+
+    return false
+
+end
+
 -- generate an order
 local function generate_order(number_of_items)        
 
     -- hardcoded for now, we will try and randomly generate these later.        
     local order = {}
 
-    for i=1, number_of_items do             
+    for i=1, number_of_items do   
+        local randomName = ""
+        
+        repeat
+            randomName = shippingCo.objectiveItems[math.random(#shippingCo.objectiveItems)]
+        until (isItemAlreadyListedInOrder(order, randomName) == false)
+        
         local item = {             
-            name = shippingCo.objectiveItems[math.random(#shippingCo.objectiveItems)],
+            name = randomName,
             quantityRequired = math.random(5) * (shippingCo.configConstants.SCALE_FACTOR + global.shippingCoLevel),
             quantityLaunched = 0
         }
