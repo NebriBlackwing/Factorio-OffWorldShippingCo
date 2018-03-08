@@ -6,7 +6,9 @@ local shippingCo = {
         SHIPPING_CO_STARTING_LEVEL = 1        
     },
     objectiveItems = {
-        "factory-shipping-package",         
+        "factory-shipping-package",
+        "oil-shipping-package",
+        "rail-shipping-package"
     }
 }
 
@@ -14,12 +16,12 @@ local shippingCo = {
 local function generate_order(number_of_items)        
 
     -- hardcoded for now, we will try and randomly generate these later.        
-    local order = {}    
+    local order = {}
 
-    for i=1, number_of_items do        
+    for i=1, number_of_items do             
         local item = {             
             name = shippingCo.objectiveItems[math.random(#shippingCo.objectiveItems)],
-            quantityRequired = math.random(5) * (shippingCo.configConstants.SCALE_FACTOR * global.shippingCoLevel),
+            quantityRequired = math.random(5) * (shippingCo.configConstants.SCALE_FACTOR + global.shippingCoLevel),
             quantityLaunched = 0
         }
 

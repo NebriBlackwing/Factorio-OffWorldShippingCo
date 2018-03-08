@@ -20,7 +20,6 @@ factoryShippingPackageItem.place_result = "factory-shipping-package"
 local factoryShippingPackageRecipe = table.deepcopy(data.raw.recipe["steel-chest"])
 factoryShippingPackageRecipe.name = "factory-shipping-package-recipe"
 factoryShippingPackageRecipe.enabled = true
-energy_required = 30
 factoryShippingPackageRecipe.ingredients = {
     {"express-transport-belt",100},
     {"express-underground-belt",50},
