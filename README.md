@@ -1,19 +1,14 @@
-This mod randomly generates a shipping order that must be blasted off into space using the rocket silo, with an expanded rocket inventory (10 slots).
+This mod randomly generates a shipping order that must be blasted off into space using the rocket silo.
 
-Each time you complete an order, it will push the order level higher. The mod will generate an item list based on scale factor upon the level (20% per level), within a defined range. There is no limit to the level, this will continuously generate orders indefinitely.
+Each time you complete an order, it will push the order level higher. The mod will generate an item list based on a scale factor upon the level (20% per level), within a defined range. There is no limit to the level, this will continuously generate orders indefinitely.
 
-The mod uses a pool of items at random to pick from, which currently is limited to the transport-belts + science packs as a proof of concept. As this mod gets further developed the pool of items will increase. Hopefully this mod will give your mega base a production challenge, that will continuously scale up with every fulfilled order.
-
-As a fair warning, this is my first mod. It has not been tested in a multiplayer environment, or with other mods. Please report any issues / bugs on the GitHub issue tracker. I will do my absolute best to resolve any concerns when I can.
+Please report any issues / bugs on the GitHub issue tracker. I will do my absolute best to resolve any concerns when I can.
 
 Thanks for trying out the mod! Feedback is always welcomed.
 
     Planned Features
 
-    - Find a way to output the shipping order demands to circuit network
-
-    Known Issues
-    - Currently modification of Rocket Silo code will disable Rocket Related Achievements. Fixing this is my current priority.
+    - Find a way to output the shipping order demands to circuit network    
 
     Version History (note that my version system reflects the primary version of Factorio, with the last digit representing my revisions.)
 
@@ -29,3 +24,12 @@ Thanks for trying out the mod! Feedback is always welcomed.
     0.16.3 (2018-28-02):
         - Internal code clean up
         - fixed bug that caused shipping orders to start at level 200, it now starts at level 1 as intended.
+    0.16.4 (2018-08-03)
+        - complete mod overhaul!
+            - introduced shipping packages
+                - factory shipping package
+                - modular shipping package
+                - rail shipping package
+                - oil shipping package
+            - introduced shipping package research
+        - mod no longer modifies rocket_silo, this should allow all achievements to be completed with   this mod enabled.

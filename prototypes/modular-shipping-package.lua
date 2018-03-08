@@ -21,12 +21,10 @@ local modularShippingPackageRecipe = table.deepcopy(data.raw.recipe["steel-chest
 modularShippingPackageRecipe.name = "modular-shipping-package-recipe"
 modularShippingPackageRecipe.enabled = false
 modularShippingPackageRecipe.ingredients = {
-    {"express-transport-belt",100},
-    {"express-underground-belt",50},
-    {"express-splitter",50},
-    {"assembling-machine-3",50},
-    {"stack-inserter",50},
-    {"stack-filter-inserter",50},
+    {"beacon",10},
+    {"speed-module-3",50},
+    {"productivity-module-3",50},
+    {"effectivity-module-3",50}    
 }
 modularShippingPackageRecipe.result = "modular-shipping-package"
 

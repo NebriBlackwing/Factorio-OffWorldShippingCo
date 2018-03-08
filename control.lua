@@ -112,13 +112,18 @@ script.on_event( defines.events.on_tick, function(event)
     end    
 
     for i, player in pairs(game.connected_players) do
-        if player.gui.top.shippingCoOrderButton == nil then 
-            player.gui.top.add{ type = "button", name="shippingCoOrderButton", caption = "Shipping Order" }
-        end
 
-        if global.shippingCoOrderIsComplete then
-            player.print("Shipping Order complete! Recieving new order!")            
-        end
+        if game.forces.player.technologies["shipping-packages"].researched then
+
+            if player.gui.top.shippingCoOrderButton == nil then 
+                player.gui.top.add{ type = "button", name="shippingCoOrderButton", caption = "Shipping Order" }
+            end
+    
+            if global.shippingCoOrderIsComplete then
+                player.print("Shipping Order complete! Recieving new order!")            
+            end
+
+        end        
     end    
 
     if global.shippingCoOrderIsComplete then
