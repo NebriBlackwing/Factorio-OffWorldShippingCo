@@ -16,6 +16,10 @@ local shippingTechnology = {
       {
         type = "unlock-recipe",
         recipe = "rail-shipping-package-recipe"
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "modular-shipping-package-recipe"
       }
     },
     prerequisites = {"rocket-silo"},

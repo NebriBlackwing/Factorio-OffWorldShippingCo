@@ -8,7 +8,8 @@ local shippingCo = {
     objectiveItems = {
         "factory-shipping-package",
         "oil-shipping-package",
-        "rail-shipping-package"
+        "rail-shipping-package",
+        "modular-shipping-package"
     }
 }
 
