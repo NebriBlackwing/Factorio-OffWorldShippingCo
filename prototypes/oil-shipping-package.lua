@@ -19,7 +19,7 @@ oilShippingPackageItem.place_result = "oil-shipping-package"
 
 local oilShippingPackageRecipe = table.deepcopy(data.raw.recipe["steel-chest"])
 oilShippingPackageRecipe.name = "oil-shipping-package-recipe"
-oilShippingPackageRecipe.enabled = true
+oilShippingPackageRecipe.enabled = false
 oilShippingPackageRecipe.ingredients = {
     {"oil-refinery",10},    
     {"pipe",100},

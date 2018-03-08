@@ -19,12 +19,12 @@ railShippingPackageItem.place_result = "rail-shipping-package"
 
 local railShippingPackageRecipe = table.deepcopy(data.raw.recipe["steel-chest"])
 railShippingPackageRecipe.name = "rail-shipping-package-recipe"
-railShippingPackageRecipe.enabled = true
+railShippingPackageRecipe.enabled = false
 railShippingPackageRecipe.ingredients = {
     {"locomotive",5},
     {"cargo-wagon",5},
     {"artillery-wagon",5},
-    {"straight-rail",100},
+    {"rail",100},
     {"rail-signal",50},
     {"train-stop",10},
 }
