@@ -33,3 +33,5 @@ Thanks for trying out the mod! Feedback is always welcomed.
                 - oil shipping package
             - introduced shipping package research
         - mod no longer modifies rocket_silo, this should allow all achievements to be completed with   this mod enabled.
+    0.16.5 (2018-10-03)
+        - fixed a bug that caused the game to crash when clicking the gui button.
