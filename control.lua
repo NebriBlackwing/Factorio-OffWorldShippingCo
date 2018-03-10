@@ -52,20 +52,6 @@ local function generate_order(number_of_items)
     return order
 end
 
-local function gui_init(player)
-
-    if player.gui.top["shippingCoOrderButton"] then
-        player.gui.top["shippingCoOrderButton"].destroy()
-    end
-
-    player.gui.top.add{        
-        type = "button",
-        name = "shippingCoOrderButton",
-        caption = {"Order"}
-    }
-
-end
-
 local function gui_open_frame(player)
     local frame = player.gui.left["shipping-co-order-frame"]
 
@@ -177,10 +163,29 @@ local function disable_satelite_dialog()
     end
 end
 
+
+local function destroy_gui()
+
+    for i, player in pairs(game.connected_players) do
+        button = player.gui.top["shippingCoOrderButton"]
+        frame = player.gui.left["shipping-co-order-frame"]
+
+        if frame then
+            frame.destroy()
+        end
+
+        if button then
+            button.destroy()
+        end
+    end    
+end
+
 script.on_init(function() 
     disable_satelite_dialog()
+    destroy_gui()
 end)
 
 script.on_configuration_changed(function() 
     disable_satelite_dialog()
+    destroy_gui()
 end)
