@@ -20,6 +20,10 @@ local shippingTechnology = {
       {
         type = "unlock-recipe",
         recipe = "modular-shipping-package-recipe"
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "shipping-order-receiver-recipe"
       }
     },
     prerequisites = {"rocket-silo"},

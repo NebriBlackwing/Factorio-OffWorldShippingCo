@@ -25,6 +25,30 @@ local function isItemAlreadyListedInOrder(order, itemName)
 
 end
 
+-- set the circuit signals for one or all receiver entities
+local function update_receivers(entity)
+    if entity or ((not entity) and #global.receivers) then
+        local signalParameters = { parameters = {{index=1,signal={type="virtual",name="signal-offworldshippingco-level"},count=global.shippingCoLevel}} }
+        if global.shippingCoOrder then
+            for index, item in ipairs(global.shippingCoOrder) do
+                table.insert(signalParameters.parameters,
+                    {index=index+1,signal={type="item",name=item.name},count=item.quantityRequired-item.quantityLaunched}
+                )
+            end
+        end
+
+        for index, receiver in ipairs(entity and {{entity = entity}} or global.receivers) do
+            if receiver.entity.valid then
+                receiver.entity.get_control_behavior().parameters = signalParameters
+            else
+                if not entity then
+                    table.remove(global.receivers, index)
+                end
+            end
+        end
+    end
+end
+
 -- generate an order
 local function generate_order(number_of_items)
 
@@ -40,7 +64,7 @@ local function generate_order(number_of_items)
 
         local item = {
             name = randomName,
-            quantityRequired = math.random(5) * (shippingCo.configConstants.SCALE_FACTOR + global.shippingCoLevel),
+            quantityRequired = math.ceil( math.random(5) * (shippingCo.configConstants.SCALE_FACTOR + global.shippingCoLevel) ),
             quantityLaunched = 0
         }
 
@@ -67,7 +91,7 @@ local function gui_open_frame(player)
     }
 
     if global.shippingCoOrder then
-        for key, item in pairs(global.shippingCoOrder) do
+        for index, item in ipairs(global.shippingCoOrder) do
             frame.add {
                 type = "label",
                 caption = string.format("%s launched : %d / %d", item.name, item.quantityLaunched, item.quantityRequired)
@@ -78,7 +102,7 @@ end
 
 local function check_order_complete()
     if global.shippingCoOrder then
-        for key, item in pairs(global.shippingCoOrder) do
+        for index, item in ipairs(global.shippingCoOrder) do
             if (item.quantityLaunched < item.quantityRequired) then
                 return false
             end
@@ -95,6 +119,7 @@ script.on_event( defines.events.on_tick, function(event)
 
     if not global.shippingCoOrder then
         global.shippingCoOrder = generate_order(math.random(shippingCo.configConstants.MAX_ITEMS_PER_ORDER))
+        update_receivers()
     end
 
     for i, player in pairs(game.connected_players) do
@@ -115,6 +140,7 @@ script.on_event( defines.events.on_tick, function(event)
     if global.shippingCoOrderIsComplete then
         global.shippingCoLevel = global.shippingCoLevel + 1
         global.shippingCoOrder = generate_order(math.random(shippingCo.configConstants.MAX_ITEMS_PER_ORDER))
+        update_receivers()
 
         for i, player in pairs(game.connected_players) do
             gui_open_frame(player)
@@ -125,9 +151,10 @@ end)
 
 script.on_event(defines.events.on_rocket_launched, function(event)
     if global.shippingCoOrder then
-        for key, item in pairs(global.shippingCoOrder) do
+        for index, item in ipairs(global.shippingCoOrder) do
             item.quantityLaunched = item.quantityLaunched + event.rocket.get_item_count(item.name)
         end
+        update_receivers()
 
         global.shippingCoOrderIsComplete = check_order_complete()
     end
@@ -156,6 +183,17 @@ script.on_event( defines.events.on_gui_click, function(event)
 
 end )
 
+local function on_built_entity( event )
+    local entity = event.created_entity
+    if entity.name == "shipping-order-receiver" then
+        table.insert( global.receivers, {entity = entity} )
+        update_receivers(entity)
+    end
+end
+
+script.on_event(defines.events.on_built_entity, on_built_entity )
+script.on_event(defines.events.on_robot_built_entity, on_built_entity )
+
 local function disable_satelite_dialog()
     -- just to make sure we don't accidently finish the game!
     if remote.interfaces["silo_script"] then
@@ -183,9 +221,11 @@ end
 script.on_init(function()
     disable_satelite_dialog()
     destroy_gui()
+    global.receivers = global.receivers or {}
 end)
 
 script.on_configuration_changed(function()
     disable_satelite_dialog()
     destroy_gui()
+    global.receivers = global.receivers or {}
 end)
