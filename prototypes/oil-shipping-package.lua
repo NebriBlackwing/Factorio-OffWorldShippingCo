@@ -3,7 +3,7 @@ oilShippingPackageEntity.name = "oil-shipping-package"
 oilShippingPackageEntity.minable = {mining_time = 1, result = "oil-shipping-package"}
 oilShippingPackageEntity.inventory_size = 0
 oilShippingPackageEntity.icon = "__OffWorldShippingCo__/graphics/oil-shipping-package.png"
-oilShippingPackageEntity.picture = 
+oilShippingPackageEntity.picture =
     {
       filename = "__OffWorldShippingCo__/graphics/oil-shipping-package.png",
       priority = "extra-high",
@@ -21,7 +21,7 @@ local oilShippingPackageRecipe = table.deepcopy(data.raw.recipe["steel-chest"])
 oilShippingPackageRecipe.name = "oil-shipping-package-recipe"
 oilShippingPackageRecipe.enabled = false
 oilShippingPackageRecipe.ingredients = {
-    {"oil-refinery",10},    
+    {"oil-refinery",10},
     {"pipe",100},
     {"pumpjack",20},
     {"pump",50},

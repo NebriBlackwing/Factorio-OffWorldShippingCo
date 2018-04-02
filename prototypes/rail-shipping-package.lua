@@ -3,7 +3,7 @@ railShippingPackageEntity.name = "rail-shipping-package"
 railShippingPackageEntity.minable = {mining_time = 1, result = "rail-shipping-package"}
 railShippingPackageEntity.inventory_size = 0
 railShippingPackageEntity.icon = "__OffWorldShippingCo__/graphics/rail-shipping-package.png"
-railShippingPackageEntity.picture = 
+railShippingPackageEntity.picture =
     {
       filename = "__OffWorldShippingCo__/graphics/rail-shipping-package.png",
       priority = "extra-high",

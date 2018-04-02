@@ -3,7 +3,7 @@ factoryShippingPackageEntity.name = "factory-shipping-package"
 factoryShippingPackageEntity.minable = {mining_time = 1, result = "factory-shipping-package"}
 factoryShippingPackageEntity.inventory_size = 0
 factoryShippingPackageEntity.icon = "__OffWorldShippingCo__/graphics/factory-shipping-package.png"
-factoryShippingPackageEntity.picture = 
+factoryShippingPackageEntity.picture =
     {
       filename = "__OffWorldShippingCo__/graphics/factory-shipping-package.png",
       priority = "extra-high",

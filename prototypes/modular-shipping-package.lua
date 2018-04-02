@@ -3,7 +3,7 @@ modularShippingPackageEntity.name = "modular-shipping-package"
 modularShippingPackageEntity.minable = {mining_time = 1, result = "modular-shipping-package"}
 modularShippingPackageEntity.inventory_size = 0
 modularShippingPackageEntity.icon = "__OffWorldShippingCo__/graphics/modular-shipping-package.png"
-modularShippingPackageEntity.picture = 
+modularShippingPackageEntity.picture =
     {
       filename = "__OffWorldShippingCo__/graphics/modular-shipping-package.png",
       priority = "extra-high",
@@ -24,7 +24,7 @@ modularShippingPackageRecipe.ingredients = {
     {"beacon",10},
     {"speed-module-3",50},
     {"productivity-module-3",50},
-    {"effectivity-module-3",50}    
+    {"effectivity-module-3",50}
 }
 modularShippingPackageRecipe.result = "modular-shipping-package"
 
