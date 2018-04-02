@@ -1,25 +1,12 @@
-local oilShippingPackageEntity = table.deepcopy(data.raw.container["steel-chest"])
-oilShippingPackageEntity.name = "oil-shipping-package"
-oilShippingPackageEntity.minable = {mining_time = 1, result = "oil-shipping-package"}
-oilShippingPackageEntity.inventory_size = 0
-oilShippingPackageEntity.icon = "__OffWorldShippingCo__/graphics/oil-shipping-package.png"
-oilShippingPackageEntity.picture =
-    {
-      filename = "__OffWorldShippingCo__/graphics/oil-shipping-package.png",
-      priority = "extra-high",
-      width = 48,
-      height = 34,
-      shift = {0.1875, 0}
-    }
-
-local oilShippingPackageItem = table.deepcopy(data.raw.item["steel-chest"])
+local oilShippingPackageItem = table.deepcopy(data.raw.item["iron-gear-wheel"])
 oilShippingPackageItem.name = "oil-shipping-package"
 oilShippingPackageItem.icon = "__OffWorldShippingCo__/graphics/oil-shipping-package.png"
-oilShippingPackageItem.place_result = "oil-shipping-package"
 
-local oilShippingPackageRecipe = table.deepcopy(data.raw.recipe["steel-chest"])
+local oilShippingPackageRecipe = table.deepcopy(data.raw.recipe["iron-gear-wheel"])
 oilShippingPackageRecipe.name = "oil-shipping-package-recipe"
 oilShippingPackageRecipe.enabled = false
+oilShippingPackageRecipe.normal = nil
+oilShippingPackageRecipe.expensive = nil
 oilShippingPackageRecipe.ingredients = {
     {"oil-refinery",10},
     {"pipe",100},
@@ -30,4 +17,4 @@ oilShippingPackageRecipe.ingredients = {
 }
 oilShippingPackageRecipe.result = "oil-shipping-package"
 
-data:extend{oilShippingPackageEntity,oilShippingPackageItem,oilShippingPackageRecipe}
+data:extend{oilShippingPackageItem,oilShippingPackageRecipe}

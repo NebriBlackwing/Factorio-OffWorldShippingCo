@@ -1,25 +1,12 @@
-local modularShippingPackageEntity = table.deepcopy(data.raw.container["steel-chest"])
-modularShippingPackageEntity.name = "modular-shipping-package"
-modularShippingPackageEntity.minable = {mining_time = 1, result = "modular-shipping-package"}
-modularShippingPackageEntity.inventory_size = 0
-modularShippingPackageEntity.icon = "__OffWorldShippingCo__/graphics/modular-shipping-package.png"
-modularShippingPackageEntity.picture =
-    {
-      filename = "__OffWorldShippingCo__/graphics/modular-shipping-package.png",
-      priority = "extra-high",
-      width = 48,
-      height = 34,
-      shift = {0.1875, 0}
-    }
-
-local modularShippingPackageItem = table.deepcopy(data.raw.item["steel-chest"])
+local modularShippingPackageItem = table.deepcopy(data.raw.item["iron-gear-wheel"])
 modularShippingPackageItem.name = "modular-shipping-package"
 modularShippingPackageItem.icon = "__OffWorldShippingCo__/graphics/modular-shipping-package.png"
-modularShippingPackageItem.place_result = "modular-shipping-package"
 
-local modularShippingPackageRecipe = table.deepcopy(data.raw.recipe["steel-chest"])
+local modularShippingPackageRecipe = table.deepcopy(data.raw.recipe["iron-gear-wheel"])
 modularShippingPackageRecipe.name = "modular-shipping-package-recipe"
 modularShippingPackageRecipe.enabled = false
+modularShippingPackageRecipe.normal = nil
+modularShippingPackageRecipe.expensive = nil
 modularShippingPackageRecipe.ingredients = {
     {"beacon",10},
     {"speed-module-3",50},
@@ -28,4 +15,4 @@ modularShippingPackageRecipe.ingredients = {
 }
 modularShippingPackageRecipe.result = "modular-shipping-package"
 
-data:extend{modularShippingPackageEntity,modularShippingPackageItem,modularShippingPackageRecipe}
+data:extend{modularShippingPackageItem,modularShippingPackageRecipe}
