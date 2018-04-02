@@ -31,5 +31,6 @@ Thanks for trying out the mod! Feedback is always welcomed.
         - mod no longer modifies rocket_silo, this should allow all achievements to be completed with   this mod enabled.
     0.16.5 (2018-10-03)
         - fixed a bug that caused the game to crash when clicking the gui button.
-    0.16.6 (2018-02-04)
+    0.16.6 (2018-02-04) (thank you to sparr)
         - added order receiver entity to send orders to circuit network
+        - fix for shipping packages, they are no longer placable in the game world as a chest.
