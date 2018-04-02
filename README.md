@@ -6,10 +6,6 @@ Please report any issues / bugs on the GitHub issue tracker. I will do my absolu
 
 Thanks for trying out the mod! Feedback is always welcomed.
 
-    Planned Features
-
-    - Find a way to output the shipping order demands to circuit network    
-
     Version History (note that my version system reflects the primary version of Factorio, with the last digit representing my revisions.)
 
     0.15.0 (2018-23-02):
@@ -35,3 +31,5 @@ Thanks for trying out the mod! Feedback is always welcomed.
         - mod no longer modifies rocket_silo, this should allow all achievements to be completed with   this mod enabled.
     0.16.5 (2018-10-03)
         - fixed a bug that caused the game to crash when clicking the gui button.
+    0.16.6 (2018-02-04)
+        - added order receiver entity to send orders to circuit network

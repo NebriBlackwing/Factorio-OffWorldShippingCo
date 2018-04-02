@@ -1,25 +1,12 @@
-local factoryShippingPackageEntity = table.deepcopy(data.raw.container["steel-chest"])
-factoryShippingPackageEntity.name = "factory-shipping-package"
-factoryShippingPackageEntity.minable = {mining_time = 1, result = "factory-shipping-package"}
-factoryShippingPackageEntity.inventory_size = 0
-factoryShippingPackageEntity.icon = "__OffWorldShippingCo__/graphics/factory-shipping-package.png"
-factoryShippingPackageEntity.picture = 
-    {
-      filename = "__OffWorldShippingCo__/graphics/factory-shipping-package.png",
-      priority = "extra-high",
-      width = 48,
-      height = 34,
-      shift = {0.1875, 0}
-    }
-
-local factoryShippingPackageItem = table.deepcopy(data.raw.item["steel-chest"])
+local factoryShippingPackageItem = table.deepcopy(data.raw.item["iron-gear-wheel"])
 factoryShippingPackageItem.name = "factory-shipping-package"
 factoryShippingPackageItem.icon = "__OffWorldShippingCo__/graphics/factory-shipping-package.png"
-factoryShippingPackageItem.place_result = "factory-shipping-package"
 
-local factoryShippingPackageRecipe = table.deepcopy(data.raw.recipe["steel-chest"])
+local factoryShippingPackageRecipe = table.deepcopy(data.raw.recipe["iron-gear-wheel"])
 factoryShippingPackageRecipe.name = "factory-shipping-package-recipe"
 factoryShippingPackageRecipe.enabled = false
+factoryShippingPackageRecipe.normal = nil
+factoryShippingPackageRecipe.expensive = nil
 factoryShippingPackageRecipe.ingredients = {
     {"express-transport-belt",100},
     {"express-underground-belt",50},
@@ -30,4 +17,4 @@ factoryShippingPackageRecipe.ingredients = {
 }
 factoryShippingPackageRecipe.result = "factory-shipping-package"
 
-data:extend{factoryShippingPackageEntity,factoryShippingPackageItem,factoryShippingPackageRecipe}
+data:extend{factoryShippingPackageItem,factoryShippingPackageRecipe}
