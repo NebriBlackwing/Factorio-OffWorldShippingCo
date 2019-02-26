@@ -34,3 +34,5 @@ Thanks for trying out the mod! Feedback is always welcomed.
     0.16.6 (2018-02-04) (thank you to sparr)
         - added order receiver entity to send orders to circuit network
         - fix for shipping packages, they are no longer placable in the game world as a chest.
+    0.17.1 (2018-23-02):
+    Support for Factorio 0.17.x
