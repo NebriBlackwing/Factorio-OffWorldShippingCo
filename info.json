@@ -1,11 +1,11 @@
 {
     "name": "OffWorldShippingCo",
-    "version": "0.16.6",
+    "version": "0.17.1",
     "title": "Off World Shipping Co",
     "author": "Ryan Fletcher (aka: Nebri)",
     "contact": "ryan450@gmail.com",
     "homepage": "",
-    "factorio_version": "0.16",
-    "dependencies": ["base >= 0.16"],
+    "factorio_version": "0.17",
+    "dependencies": ["base >= 0.17"],
     "description": "This mod randomly generates a shipping order that must be blasted off into space using the rocket silo."
 }
